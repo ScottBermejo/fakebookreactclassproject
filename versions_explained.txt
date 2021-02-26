@@ -1,0 +1,8 @@
+Software has versions
+react-router-dom@Major.Minor.Patch
+
+Major = Complete, introducing new suite of functionality, new functions, processes.
+
+Minor = Fixing significant things, but nothing that will detrimentally break your app.
+
+Patch = Extremely minor update.
