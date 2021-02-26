@@ -17,7 +17,7 @@ export default class Product extends Component {
                         <img className="card-img-top" src="https://placehold.it/500x500&text=Product Image" alt={product.name} />
                     </div>
                     <div className="card-footer">
-                        <button className="btn btn-success btn-block">Add to Cart</button>
+                        <button onClick={() => this.props.addToCart(product)} className="btn btn-success btn-block">Add to Cart</button>
                     </div>
                 </div>
             </div>

@@ -22,7 +22,12 @@ export default class Navbar extends Component {
                             <a className="nav-link dropdown-toggle" href="/" id="dropdownId" data-toggle="dropdown" aria-expanded="false">Shop</a>
                             <div className="dropdown-menu" aria-labelledby="dropdownId">
                                 <Link className="dropdown-item" to="/shop">Products</Link>
-                                <Link className="dropdown-item" to="/">Cart</Link>
+                                <Link className="dropdown-item" to="/">
+                                    Cart
+                                    <span className="float-right">
+                                        <span class="badge badge-pill badge-secondary">{this.props.cart.length}</span>
+                                    </span>
+                                </Link>
                                 <Link className="dropdown-item" to="/">Checkout</Link>
                             </div>
                         </li>
