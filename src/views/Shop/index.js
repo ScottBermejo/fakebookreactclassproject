@@ -6,7 +6,7 @@ export default class Shop extends Component {
 
         return (
             <div>
-                <h4>Shop</h4>
+                <h3>Shop</h3>
                 <hr />
                 <div className="card-deck">
                     {this.props.products.map((p, idx) => <Product addToCart={this.props.addToCart} info={p} key={idx} />)}

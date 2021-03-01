@@ -5,3 +5,15 @@ nav, .card-container {
 .card-text {
   height: 47.273px;
 }
+
+.product {
+    margin-bottom: 25px;
+}
+
+.card-text {
+    height: 47.273px;
+}
+
+.standardized {
+    padding-left: 0px;
+}

@@ -6,6 +6,7 @@ import Navbar from './components/Navbar';
 import Home from './views/Home';
 import Shop from './views/Shop';
 import Contact from './views/Contact';
+import ShopCart from './views/ShopCart';
 
 export default class App extends Component {
   constructor() {
@@ -50,7 +51,8 @@ export default class App extends Component {
           <Switch>
             <Route exact path='/' render={() => <Home />} />
             <Route path='/contact' render={() => <Contact />} />
-            <Route path='/shop' render={() => <Shop addToCart={this.addToCart} products={this.state.products} />} />
+            <Route exact path='/shop' render={() => <Shop addToCart={this.addToCart} products={this.state.products} />} />
+            <Route path='/shop/cart' render={() => <ShopCart cart={this.state.cart} />} />
           </Switch>
 
         </main>
