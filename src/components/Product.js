@@ -8,13 +8,15 @@ export default class Product extends Component {
             <div className="col-md-4 card-container">
                 <div className="card">
                     <div className="card-header">
-                        <h5>{product.name}
+                        <h6>{product.name}
                             <span className="float-right">${product.price}</span>
-                        </h5>
+                        </h6>
                     </div>
-
+                    <img className="card-img-top" src="https://placehold.it/500x500&text=Product Image" alt={product.name} />
                     <div className="card-body">
-                        <img className="card-img-top" src="https://placehold.it/500x500&text=Product Image" alt={product.name} />
+                        <div className="card-text">
+                            <p>{product.description}</p>
+                        </div>
                     </div>
                     <div className="card-footer">
                         <button onClick={() => this.props.addToCart(product)} className="btn btn-success btn-block">Add to Cart</button>

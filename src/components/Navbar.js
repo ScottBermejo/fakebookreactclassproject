@@ -25,7 +25,7 @@ export default class Navbar extends Component {
                                 <Link className="dropdown-item" to="/">
                                     Cart
                                     <span className="float-right">
-                                        <span class="badge badge-pill badge-secondary">{this.props.cart.length}</span>
+                                        <span className="badge badge-pill badge-secondary">{this.props.cart.length}</span>
                                     </span>
                                 </Link>
                                 <Link className="dropdown-item" to="/">Checkout</Link>
