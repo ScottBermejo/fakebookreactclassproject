@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import CartItem from '../../components/CartItem'
 
+
 export default class ShopCart extends Component {
     render() {
         return (
@@ -19,14 +20,14 @@ export default class ShopCart extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.props.cart.map((item, idx) => <CartItem key={idx} item={item} />)}
+                            {this.props.cart.map((item, idx) => <CartItem removeFromCart={this.props.removeFromCart} key={idx} item={item} />)}
                             <tr>
                                 <td colSpan="3"></td>
                                 <td>
                                     <strong className="float-right">Subtotal</strong>
                                 </td>
                                 <td>
-                                    <strong>$0.00</strong>
+                                    <strong >$0.00</strong>
                                 </td>
                             </tr>
                             <tr>
