@@ -15,8 +15,9 @@ export default class App extends Component {
     this.state = {
       products: [],
       cart: [],
-      cartTotal: 0
-
+      cartTotal: 0,
+      taxTotal: 0,
+      grandTotal: 0,
     }
   }
 
@@ -39,118 +40,73 @@ export default class App extends Component {
 
   // addToCart = (product) => this.setState({ cart: this.state.cart.concat(product) });
   addToCart = (product) => {
-    // var count = this.state.cartTotal;
-    // product.quantity =  1 if product.name is not already in the list. use variable like name or the id. loop through list and if product.id=listproduct.id, then add 1 to the quantity and if it's not in the list make it equal to one and add it to the list. if id didn't exist, add item with the id, if tit id exist, add that to the quantity.
-    // this.setState({
-    //   cartTotal: count += product.price
-    // })
-    
-    if(this.state.cart.includes(product)){
+    var ct = this.state.cartTotal;
+    ct = ct + product.price;
+    if (this.state.cart.includes(product)) {
       product.Quantity++;
       console.log(product.Quantity)
     }
-    else{
+    else {
       product.Quantity = 1;
       this.setState({
-        cart: this.state.cart.concat(product)
+        cart: this.state.cart.concat(product),
       })
-      
     }
+    this.setState({
+      cartTotal: ct
+    })
   }
 
-  setCartTotal = (ct) => {
-    this.setState ({
-      cartTotal: ct,
-      
-    })
+  getCartTotal = () => {
+    return this.state.cartTotal;
+  }
+
+  getTaxTotal = () => {
+    return this.state.cartTotal * 0.12;
+  }
+
+  getGrandTotal = () => {
+    return this.state.cartTotal + this.state.taxTotal;
   }
 
   removeFromCart = (product) => {
     let cart = [...this.state.cart];
-    var ct = 0; //set cart toal function
-    for(var i=0; i< cart.length;i++){
-      if(this.state.cart[i] == product){
-      var num = document.getElementsByName("update")[i].value;
-      console.log(num);
-      product.Quantity = num;
-      ct = ct + (product.Quantity*product.price) //teather function
-      console.log(ct)
-      this.setState ({
-      cartTotal: ct,
-    },       () => console.log(this.state.cartTotal) //updates element on the screen, uses callback function. anon function is the callback function, need more callback functions
-    //carttotalproperty = ct starts callbck function, when you set the state, then it starts the callback function
-)
-      
-  }}
-    document.getElementsByName("subtotal").innerHTML = this.state.cartTotal;
-    console.log(this.state.cartTotal) //one click behind
-
-    this.setState({
-      cart: cart
-    })
-  
-
-    // let index = cart.indexOf(product);
-
-    // let total = this.state.cartTotal;
-    // if (index !== -1) {
-    //   cart.splice(index, 1);
-    
-    //   this.setState({
-    //     cart: cart,
-    //     cartTotal: total -= product.price
-    //   })
-    // }
-  }
-
-
-  updateCart = (product) => {
-    let cart = [...this.state.cart];
-    var num = document.getElementById("update");
-    console.log(num);
-    product.Quantity = num;
-    console.log(product.Quantity);
-    this.setState({
-      cart: cart
-    })
-    }
-
-  clearCart = () => {
-    this.setState({
-      cart: [],
-      cartTotal: 0
-    })
-  }
-//make a new list made from original list, return that in it's own state, make new state that passes in quantity values
-//product.quantity =  1 if product.name is not already in the list. use variable like name or the id. loop through list and if product.id=listproduct.id, then add 1 to the quantity and if it's not in the list make it equal to one and add it to the list. if id didn't exist, add item with the id, if tit id exist, add that to the quantity.
-  // displayCart = () => {
-  //   let cart=[];
-
-
-  // }
-
-  getCountOfProduct = (product) => {
-    let cart = [...this.state.cart];
-    let tempList = [];
-    var count = 0;
-    for (let i of cart){
-      tempList.push(i.name);
-    }
-    for(let i of tempList){
-      if(i===product){
-        count++;
+    var ct = this.state.cartTotal; //set cart total function
+    for (var i = 0; i < cart.length; i++) {
+      if (this.state.cart[i] === product) {
+        var num = document.getElementsByName("update")[i].value;
+        var prevQuantity = this.state.cart[i].Quantity;
+        product.Quantity = num;
+        if (prevQuantity < product.Quantity) {
+          ct = ct + (product.Quantity - prevQuantity) * product.price;
+        }
+        if (prevQuantity > product.Quantity) {
+          ct = ct - (prevQuantity - product.Quantity) * product.price;
+        }
+        if (product.Quantity == 0) {
+          let index = cart.indexOf(product);
+          if (index !== -1) {
+            cart.splice(index, 1);
+          }
+        }
+        console.log(ct);
       }
     }
-    // cart.forEach(element => { if (element === product) { count += 1 } })
+    document.getElementsByName("subtotal").innerHTML = this.state.cartTotal;
+    var tt = ct * 0.12;
+    var gt = ct + tt;
+    // console.log(document.getElementsByName("subtotal").innerHTML)
     this.setState({
-      cart: cart
+      cart: cart,
+      cartTotal: ct,
+      taxTotal: tt,
+      grandTotal: gt
     })
-    return count
   }
 
   render() {
     // console.log("Component rendered");
-    
+
     return (
       <div>
         <header>
@@ -163,8 +119,13 @@ export default class App extends Component {
             <Route exact path='/' render={() => <Home />} />
             <Route path='/contact' render={() => <Contact />} />
             <Route exact path='/shop' render={() => <Shop addToCart={this.addToCart} products={this.state.products} />} />
-            <Route exact path='/shop/cart' render={() => <ShopCart removeFromCart={this.removeFromCart} cart={this.state.cart} />} />
-      
+            <Route exact path='/shop/cart' render={() => 
+            <ShopCart removeFromCart={this.removeFromCart}
+              getCartTotal={this.getCartTotal}
+              getTaxTotal={this.getTaxTotal}
+              getGrandTotal={this.getGrandTotal}
+              cart={this.state.cart} />} />
+
           </Switch>
 
         </main>

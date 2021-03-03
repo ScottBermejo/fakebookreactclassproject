@@ -10,6 +10,7 @@ export default class CartItem extends Component {
                 <td>{item.name}</td>
                 <td>{item.description}</td>
                 <td>{item.price}</td>
+                {/* <td>{this.props.getCartTotal()}</td> */}
                 <td>
                     <form>
                         <input type="hidden" name="product_id" defaultValue="" /> 
@@ -28,16 +29,12 @@ export default class CartItem extends Component {
                     </form>
                 </td>
                 <td>
-                    <button onClick={() => this.props.removeFromCart(item)} className="btn btn-info">
-                        {/* <button onClick={() => this.props.removeFromCart(product)} className="btn btn-danger"> */}
-                        {/* when deleting item, set item.quantity to what the number is*/} 
+                    <button onClick={() => this.props.removeFromCart(item)} className="btn btn-info"> 
                         Update
-                                    <span>
-                            <i className="fa fa-trash"></i>
-                        </span>
                     </button>
                 </td>
             </tr>
+            
         )
     }
 }

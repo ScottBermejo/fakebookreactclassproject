@@ -20,14 +20,18 @@ export default class ShopCart extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.props.cart.map((item, idx) => <CartItem removeFromCart={this.props.removeFromCart} key={idx} item={item} />)}
+                            {this.props.cart.map((item, idx) => 
+                            <CartItem removeFromCart={this.props.removeFromCart} 
+                            // getCartTotal={this.props.getCartTotal} 
+                            key={idx} item={item} />)}
                             <tr>
                                 <td colSpan="3"></td>
                                 <td>
                                     <strong className="float-right">Subtotal</strong>
                                 </td>
                                 <td>
-                                    <strong >$0.00</strong>
+                                    
+                                    <strong>${this.props.getCartTotal().toFixed(2)}</strong>
                                 </td>
                             </tr>
                             <tr>
@@ -36,7 +40,7 @@ export default class ShopCart extends Component {
                                     <strong className="float-right">Tax</strong>
                                 </td>
                                 <td>
-                                    <strong>$0.00</strong>
+                                    <strong>${this.props.getTaxTotal().toFixed(2)}</strong>
                                 </td>
                             </tr>
                             <tr>
@@ -45,7 +49,7 @@ export default class ShopCart extends Component {
                                     <strong className="float-right">Grand Total</strong>
                                 </td>
                                 <td>
-                                    <strong>$0.00</strong>
+                                    <strong>${this.props.getGrandTotal().toFixed(2)}</strong>
                                 </td>
                             </tr>
                             <tr>
