@@ -58,17 +58,32 @@ export default class App extends Component {
     }
   }
 
+  setCartTotal = (ct) => {
+    this.setState ({
+      cartTotal: ct,
+      
+    })
+  }
+
   removeFromCart = (product) => {
     let cart = [...this.state.cart];
+    var ct = 0; //set cart toal function
     for(var i=0; i< cart.length;i++){
       if(this.state.cart[i] == product){
       var num = document.getElementsByName("update")[i].value;
       console.log(num);
       product.Quantity = num;
-      this.state.cartTotal = this.state.cartTotal + (product.Quantity*product.price);
-      console.log(this.state.cartTotal);
+      ct = ct + (product.Quantity*product.price) //teather function
+      console.log(ct)
+      this.setState ({
+      cartTotal: ct,
+    },       () => console.log(this.state.cartTotal) //updates element on the screen, uses callback function. anon function is the callback function, need more callback functions
+    //carttotalproperty = ct starts callbck function, when you set the state, then it starts the callback function
+)
+      
   }}
     document.getElementsByName("subtotal").innerHTML = this.state.cartTotal;
+    console.log(this.state.cartTotal) //one click behind
 
     this.setState({
       cart: cart
