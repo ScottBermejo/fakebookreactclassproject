@@ -92,7 +92,6 @@ export default class App extends Component {
         console.log(ct);
       }
     }
-    document.getElementsByName("subtotal").innerHTML = this.state.cartTotal;
     var tt = ct * 0.12;
     var gt = ct + tt;
     // console.log(document.getElementsByName("subtotal").innerHTML)
@@ -125,7 +124,6 @@ export default class App extends Component {
               getTaxTotal={this.getTaxTotal}
               getGrandTotal={this.getGrandTotal}
               cart={this.state.cart} />} />
-
           </Switch>
 
         </main>
